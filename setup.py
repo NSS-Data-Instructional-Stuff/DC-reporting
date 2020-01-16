@@ -12,8 +12,8 @@ setup(
       install_requires=[
             'selenium==3.141.0',
             'pandas==0.25.3',
-            # 'lxml===4.4.2',
-            # 'html5lib==1.0.1'
+            'lxml===4.4.2',
+            'html5lib==1.0.1'
       ],
       zip_safe=False
 )

@@ -15,6 +15,16 @@ We'll safely ask you for the password in the CLI.
 
 You will need python3 to run this.
 
+You will also need chromedriver. 
+You can install it from [here](https://chromedriver.chromium.org/downloads).
+Check which version of chrome you are using, and download the relative version. 
+
+Then, move it somewhere your path can see it. 
+```bash
+mv ~/Downloads/<chromedriver> /usr/local/bin
+```
+That is just an example. May need to restart your terminal
+
 ### Installation
 From your terminal of choice..
 ```bash

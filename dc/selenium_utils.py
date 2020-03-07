@@ -134,8 +134,9 @@ class DataCamp:
         )
         signin_button.click()
 
+        # homepage title as of 3-6-2020
         WebDriverWait(self._driver, 10).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "groups"))
+            EC.title_is('Learn R, Python & Data Science Online | DataCamp')
         )
 
         self._logged_in = True

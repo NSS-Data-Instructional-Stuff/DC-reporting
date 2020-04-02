@@ -111,6 +111,7 @@ class DataCamp:
             EC.presence_of_element_located((By.ID, "new_user"))
         )
 
+        logger.info('Input email')
         email_input = WebDriverWait(form, 10).until(
             EC.presence_of_element_located((By.ID, "user_email"))
         )
@@ -123,20 +124,23 @@ class DataCamp:
         next_button.click()
         self._driver.implicitly_wait(2)
 
+        logger.info('Input password')
         password_input = WebDriverWait(form, 10).until(
             EC.presence_of_element_located((By.ID, "user_password"))
         )
         password_input.send_keys(self._secrets.password)
         self._driver.implicitly_wait(2)
 
+        logger.info('Signing in')
         signin_button = WebDriverWait(form, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "input[type='submit']"))
         )
         signin_button.click()
 
         # homepage title as of 3-6-2020
-        WebDriverWait(self._driver, 10).until(
-            EC.title_is('Learn R, Python & Data Science Online | DataCamp')
+        logger.info('Waiting for appropriate title')
+        WebDriverWait(self._driver, 20).until_not(
+            EC.title_is('Sign in | DataCamp')
         )
 
         self._logged_in = True
@@ -193,8 +197,11 @@ class DataCamp:
 
             df.loc[:, 'email'] = df['email'].str.replace(r'[A-Z]\s', '')
             df.loc[:, 'date_completed'] = df['date_completed'].replace('Not yet completed', np.NaN)
+
             # removing tz info
-            df.loc[:, 'date_completed'] = df['date_completed'].str.replace(r'\s[A-Z]+$', '')
+            if not df.loc[~df['date_completed'].isnull(), 'date_completed'].empty:
+                df['date_completed'] = df['date_completed'].str.replace(r'\s[A-Z]+$', '')
+
             df.loc[:, 'date_completed'] = pd.to_datetime(df['date_completed'], format='%b %d, %Y, %H:%M')
 
             return df
